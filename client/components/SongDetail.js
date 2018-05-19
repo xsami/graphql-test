@@ -6,15 +6,25 @@ import LyricCreate from './LyricCreate';
 
 class SongDetail extends Component {
 
+    onLike(id) {
+        console.log(id);
+    }
+
     renderLyrics(lyrics) {
         return <ul className='collection'>
             { 
-                lyrics.map((e, key) => <li key={key} className="collection-item">{e.content}</li>)
+                lyrics.map((e, key) => (
+                <li key={key} 
+                    className="collection-item">
+                    {e.content}
+                    <i 
+                    className="material-icons"
+                    onClick={() => this.onLike(e.id)}>thumb_up</i>
+                </li>))
             }
             </ul>;
     }
     render(){
-        console.log(this.props.data);
         const { song } = this.props.data;
         var title = 'Loading...';
         var lyrics = [];
