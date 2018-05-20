@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/fetchSongDetail';
+import mutation from '../queries/likeLyric';
 import { Link, hashHistory } from 'react-router';
 import LyricCreate from './LyricCreate';
 
 class SongDetail extends Component {
 
     onLike(id) {
-        console.log(id);
+        this.props.mutate({
+            variables: {
+                id
+            }
+        }).then(() => this.props.data.refetch());
     }
 
     renderLyrics(lyrics) {
@@ -20,6 +25,7 @@ class SongDetail extends Component {
                     <i 
                     className="material-icons"
                     onClick={() => this.onLike(e.id)}>thumb_up</i>
+                    <span className="new badge">{e.likes}</span>
                 </li>))
             }
             </ul>;
@@ -45,6 +51,7 @@ class SongDetail extends Component {
 
 
 
-export default graphql(query, {
+export default graphql(mutation)(
+    graphql(query, {
     options: (props) => ({ variables: { id: props. params.id }})
-})(SongDetail);
+})(SongDetail));
