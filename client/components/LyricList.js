@@ -5,7 +5,6 @@ import mutation from '../queries/likeLyric';
 class LyricList extends Component {
 
     onLike(id, likes) {
-        console.log('id: ', id,' likes: ', likes);
         this.props.mutate({
             variables: {
                 id
@@ -18,7 +17,7 @@ class LyricList extends Component {
                     likes: likes + 1
                 }
             }
-        }).then(res => console.log(res));
+        });
     }
 
     render() {
