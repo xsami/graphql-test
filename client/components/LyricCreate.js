@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import addLyric from '../queries/addLyricToSong';
 import { hashHistory } from 'react-router';
-import query from '../queries/fetchSongDetail';
 
 class LyricCreate extends Component {
 

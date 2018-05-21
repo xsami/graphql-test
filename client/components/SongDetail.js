@@ -7,12 +7,20 @@ import LyricCreate from './LyricCreate';
 
 class SongDetail extends Component {
 
-    onLike(id) {
+    onLike(id, likes) {
         this.props.mutate({
             variables: {
                 id
+            },
+            optimisticResponse: {
+                __typename: 'Mutation',
+                likeLyric: { 
+                    id,
+                    __typename: 'LyricType',
+                    likes: likes + 1
+                }
             }
-        }).then(() => this.props.data.refetch());
+        });
     }
 
     renderLyrics(lyrics) {
@@ -22,10 +30,12 @@ class SongDetail extends Component {
                 <li key={key} 
                     className="collection-item">
                     {e.content}
+                    <div className="like-box">
                     <i 
                     className="material-icons"
-                    onClick={() => this.onLike(e.id)}>thumb_up</i>
+                    onClick={() => this.onLike(e.id, e.likes)}>thumb_up</i>
                     <span className="new badge">{e.likes}</span>
+                    </div>
                 </li>))
             }
             </ul>;
