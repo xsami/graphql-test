@@ -13,16 +13,13 @@ class LyricCreate extends Component {
     }
 
     getOptimisticResponse() {
-        let lyrics = [];
-        this.props.list.forEach(e => {
-            lyrics.push(e);
-        });
-        lyrics.push({
+
+        const lyrics = [...list, {
             id: '000000000000',
             content: this.state.content,
             likes: 0,
             __typename: 'LyricType'
-        });
+        }];
         const optimisticResponse = {
             __typename: 'Mutation',
             addLyricToSong: {
